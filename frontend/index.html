@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Speech Translator - Stage 5 Streaming</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+      button, select {
+        font-size: 16px;
+        margin: 5px;
+        padding: 10px 20px;
+      }
+      pre {
+        white-space: pre-wrap;
+        text-align: left;
+        max-width: 600px;
+        margin: 10px auto;
+        background: #f4f4f4;
+        padding: 15px;
+        border-radius: 8px;
+      }
+      audio {
+        margin-top: 10px;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Speech Translator (Real-time Streaming)</h1>
+
+    <label for="targetLang">Choose target language:</label>
+    <select id="targetLang">
+      <option value="hi">Hindi</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+      <option value="de">German</option>
+      <option value="zh">Chinese</option>
+      <!-- Add more as needed -->
+    </select>
+
+    <br/>
+
+    <button id="startBtn">🎙 Start Recording</button>
+    <button id="stopBtn" disabled>⏹ Stop Recording</button>
+
+    <h3>Partial Transcription:</h3>
+    <pre id="partialTranscription">...</pre>
+
+    <h3>Partial Translation:</h3>
+    <pre id="partialTranslation">...</pre>
+
+    <h3>Text-to-Speech Playback:</h3>
+    <audio id="ttsAudio" controls></audio>
+
+    <script>
+      let mediaRecorder;
+      let targetLangSelect = document.getElementById("targetLang");
+      const startBtn = document.getElementById("startBtn");
+      const stopBtn = document.getElementById("stopBtn");
+      const partialTranscriptionEl = document.getElementById("partialTranscription");
+      const partialTranslationEl = document.getElementById("partialTranslation");
+      const ttsAudio = document.getElementById("ttsAudio");
+
+      startBtn.onclick = async () => {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          alert("Your browser does not support audio recording.");
+          return;
+        }
+
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+
+        // Send smaller chunks every 500ms for lower latency
+        mediaRecorder.start(500);
+
+        mediaRecorder.ondataavailable = async (event) => {
+          if (event.data.size > 0) {
+            try {
+              const response = await fetch("http://127.0.0.1:8000/api/stt_chunk", {
+                method: "POST",
+                body: event.data,
+                headers: {
+                  "Content-Type": "audio/webm",
+                  "X-Target-Lang": targetLangSelect.value,
+                },
+              });
+
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+
+              const result = await response.json();
+
+              partialTranscriptionEl.textContent = result.partial_transcription || "(no transcription)";
+              partialTranslationEl.textContent = result.partial_translation || "(no translation)";
+
+              if (result.audio_url) {
+                ttsAudio.src = result.audio_url;
+                ttsAudio.play();
+              }
+            } catch (error) {
+              console.error("Error sending chunk:", error);
+            }
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          console.log("Recording stopped.");
+        };
+
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+        partialTranscriptionEl.textContent = "...";
+        partialTranslationEl.textContent = "...";
+        ttsAudio.src = "";
+      };
+
+      stopBtn.onclick = () => {
+        mediaRecorder.stop();
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+      };
+    </script>
+  </body>
+</html>
