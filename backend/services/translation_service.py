@@ -1,21 +1,18 @@
-from transformers import pipeline
-import torch
-from backend.config import TRANSLATION_MODEL
+# backend/services/translation_service.py
+from googletrans import Translator
 
-# Select device automatically
-device = 0 if torch.cuda.is_available() else -1
-print(f"Device set to use {'GPU' if device == 0 else 'CPU'}")
+translator = Translator()
 
-# Load translator once at startup
-translator = pipeline("translation", model=TRANSLATION_MODEL, device=device)
-
-def translate_text(text, target_lang="hi"):
+def translate_text(text: str, target_lang: str = "en") -> str:
     """
-    Translate text to the target language.
+    Translate the given text to the target language using Google Translate.
     """
-    # Adjust the prefix for target language if model is multilingual
-    if target_lang != "en":
-        text = f">>{target_lang}<< {text}"
-
-    result = translator(text)
-    return result[0]['translation_text']
+    if not text.strip():
+        return ""
+    try:
+        translated = translator.translate(text, dest=target_lang)
+        return translated.text
+    except Exception as e:
+        print(f"[Translation Error]: {e}")
+        # Return the original text if translation fails
+        return text

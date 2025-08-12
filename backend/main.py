@@ -5,17 +5,37 @@ import os
 
 app = FastAPI()
 
-# Mount the frontend folder as static files
-frontend_path = os.path.join(os.path.dirname(__file__), "../frontend")
+# Frontend path
+frontend_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../frontend"))
+if not os.path.exists(frontend_path):
+    raise FileNotFoundError(f"Frontend folder not found at {frontend_path}")
+
+# Mount static files
 app.mount("/static", StaticFiles(directory=frontend_path), name="static")
 
-# Serve the index.html directly
+# Serve index.html
 @app.get("/")
 async def serve_frontend():
-    return FileResponse(os.path.join(frontend_path, "index.html"))
+    index_path = os.path.join(frontend_path, "index.html")
+    if not os.path.exists(index_path):
+        return {"error": "index.html not found in frontend folder"}
+    return FileResponse(index_path)
 
-# Import your STT routes
-from backend.routes import stt_routes, stt_chunk_routes
+# Import and include routes safely
+try:
+    from backend.routes import stt_routes
+    app.include_router(stt_routes.router, prefix="/api")
+except ImportError as e:
+    print(f"[WARNING] Could not import stt_routes: {e}")
 
-app.include_router(stt_routes.router, prefix="/api")
-app.include_router(stt_chunk_routes.router, prefix="/api")
+try:
+    from backend.routes import stt_chunk_routes
+    app.include_router(stt_chunk_routes.router, prefix="/api")
+except ImportError as e:
+    print(f"[WARNING] Could not import stt_chunk_routes: {e}")
+
+try:
+    from backend.routes import tts_routes
+    app.include_router(tts_routes.router, prefix="/api")
+except ImportError:
+    print("[INFO] tts_routes not found — skipping TTS routes for now.")
