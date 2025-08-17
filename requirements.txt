@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+speechrecognition
+pyaudio
+deep-translator
+edge-tts
+pydub
+python-multipart
+asyncio
