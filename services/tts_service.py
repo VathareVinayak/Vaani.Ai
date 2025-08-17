@@ -1,4 +1,3 @@
-import asyncio
 import edge_tts
 import os
 import platform
