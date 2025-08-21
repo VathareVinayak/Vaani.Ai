@@ -15,6 +15,12 @@ Vaani.Ai is a backend service built using FastAPI that integrates Speech-to-Text
 
 ## 📁 Project Structure
 
+Got it 👍
+Here’s your project structure **purely in Markdown format**:
+
+````markdown
+
+```plaintext
 vaani.ai/
 ├── main.py                  # FastAPI app initialization
 ├── api/
@@ -26,7 +32,9 @@ vaani.ai/
 ├── audio/                   # Generated audio files (ensure this folder exists)
 ├── requirements.txt         # Python dependencies
 └── Dockerfile               # Docker configuration for containerization
----
+````
+
+
 
 ## ⚙️ Installation
 
