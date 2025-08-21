@@ -83,7 +83,6 @@ The API will be accessible at:
 Swagger Docs will be available at:
 👉 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
-```
 
 
 # 🧪 API Endpoints
@@ -128,13 +127,14 @@ To run the application in a Docker container:
 
 1. Build the Docker image:
 
+```bash
 docker build -t vaani-ai .
-
+```
 
 2. Run the Docker container:
-
+```bash
 docker run -p 8000:8000 vaani-ai
-
+```
 
 
 The API will be accessible at http://localhost:8000.
@@ -144,12 +144,12 @@ The API will be accessible at http://localhost:8000.
 
 📌 Acknowledgments
 
-deep_translator for translation services.
+**deep_translator** for translation services.
 
-edge_tts for text-to-speech functionality.
+**edge_tts** for text-to-speech functionality.
 
-speech_recognition for speech-to-text conversion.
+**speech_recognition** for speech-to-text conversion.
 
-
-
-
+---
+Email : work.vinayakvathare@gmail.com
+linkedIn : https://www.linkedin.com/in/vinayakvathare/
