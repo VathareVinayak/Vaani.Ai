@@ -1,6 +1,6 @@
 # Vaani.Ai - Speech Translation API
 
-Vaani.Ai is a backend service built using FastAPI that integrates Speech-to-Text (STT), Translation, and Text-to-Speech (TTS) pipelines. The API enables seamless, real-time language conversion between English and Hindi, facilitating applications in voice assistants, multilingual communication tools, and accessibility solutions.
+Vaani.Ai is a backend service built using FastAPI that integrates Speech-to-Text (STT), Translation, and Text-to-Speech (TTS) pipelines. The API enables seamless, real-time language conversion between Multiple Lanuages, facilitating applications in voice assistants, multilingual communication tools, and accessibility solutions.
 
 ---
 
