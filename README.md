@@ -20,7 +20,6 @@ Here’s your project structure **purely in Markdown format**:
 
 ````markdown
 
-```plaintext
 vaani.ai/
 ├── main.py                  # FastAPI app initialization
 ├── api/
