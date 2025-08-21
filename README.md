@@ -74,85 +74,39 @@ The API will be accessible at http://127.0.0.1:8000.
 
 ---
 
-🧪 API Endpoints
+# 🧪 API Endpoints
 
-POST /stt
+---
 
-Converts uploaded audio to text.
+### 🎤 POST `/stt`
+Converts uploaded audio to text.  
 
-Request:
+**Screenshot:**  
+![STT](https://github.com/VathareVinayak/Vaani.Ai/blob/main/Test_APi/SpeechToText.png)
 
-audio: Audio file (e.g., .wav, .mp3)
+---
 
-lang: Language code (default: en)
+### 🌐 POST `/translate`
+Translates provided text to Hindi.  
 
+**Screenshot:**  
+![Translate](https://github.com/VathareVinayak/Vaani.Ai/blob/main/Test_APi/TextToText.png)
 
-Response:
+---
 
-{
-  "recognized_text": "Hello, how are you?"
-}
+### 🔊 POST `/tts`
+Converts provided text to speech.  
 
-POST /translate
+**Screenshot:**  
+![TTS](https://github.com/VathareVinayak/Vaani.Ai/blob/main/Test_APi/TextToSpeech.png)
 
-Translates provided text to Hindi.
+---
 
-Request:
+### 🔄 POST `/pipeline`
+Processes audio input through STT → Translation → TTS.  
 
-text: Text to translate
-
-src: Source language code (default: en)
-
-dest: Destination language code (default: hi)
-
-
-Response:
-
-{
-  "translated_text": "नमस्ते, आप कैसे हैं?"
-}
-
-POST /tts
-
-Converts provided text to speech and saves it as an audio file.
-
-Request:
-
-text: Text to convert
-
-voice: Voice model (default: en-US-AriaNeural)
-
-
-Response:
-
-{
-  "message": "Audio generated",
-  "file": "output.mp3"
-}
-
-POST /pipeline
-
-Processes audio input through STT, Translation, and TTS.
-
-Request:
-
-audio: Audio file
-
-src: Source language code (default: en)
-
-dest: Destination language code (default: hi)
-
-voice: Voice model for TTS (default: hi-IN-SwaraNeural)
-
-
-Response:
-
-{
-  "recognized_text": "Hello, how are you?",
-  "translated_text": "नमस्ते, आप कैसे हैं?",
-  "audio_file": "translated.mp3"
-}
-
+**Screenshot:**  
+![Pipeline](https://github.com/VathareVinayak/Vaani.Ai/blob/main/Test_APi/PipelineSpeechToSpeech.png)
 
 ---
 
