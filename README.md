@@ -15,8 +15,17 @@ Vaani.Ai is a backend service built using FastAPI that integrates Speech-to-Text
 
 ## 📁 Project Structure
 
-vaani.ai/ ├── main.py                     # FastAPI app initialization ├── api/ │   └── routes.py               # API endpoints for STT, Translation, TTS, and Pipeline ├── services/ │   ├── stt_service.py          # Speech-to-Text functions │   ├── translation_service.py  # Text translation functions │   └── tts_service.py          # Text-to-Speech functions ├── audio/                      # Generated audio files (ensure this folder exists) ├── requirements.txt            # Python dependencies └── Dockerfile                  # Docker configuration for containerization
-
+vaani.ai/
+├── main.py                  # FastAPI app initialization
+├── api/
+│   └── routes.py            # API endpoints for STT, Translation, TTS, and Pipeline
+├── services/
+│   ├── stt_service.py       # Speech-to-Text functions
+│   ├── translation_service.py # Text translation functions
+│   └── tts_service.py       # Text-to-Speech functions
+├── audio/                   # Generated audio files (ensure this folder exists)
+├── requirements.txt         # Python dependencies
+└── Dockerfile               # Docker configuration for containerization
 ---
 
 ## ⚙️ Installation
