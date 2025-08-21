@@ -34,45 +34,57 @@ vaani.ai/
 ````
 
 
-
 ## ⚙️ Installation
 
-1. Clone the repository:
-
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/VathareVinayak/Vaani.Ai.git
    cd Vaani.Ai
+   ```
 
-2. Create and activate a virtual environment:
+2. **Create and activate a virtual environment:**
 
-python3 -m venv vaanienv
-source vaanienv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   ```bash
+   python3 -m venv vaanienv
+   source vaanienv/bin/activate   # On Linux/Mac
+   ```
 
+   On Windows (PowerShell):
 
-3. Install the required dependencies:
+   ```bash
+   .\vaanienv\Scripts\activate
+   ```
 
-pip install -r requirements.txt
+3. **Install dependencies:**
 
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-4. Ensure the audio/ directory exists to store generated audio files:
+4. **Ensure the `audio/` directory exists** (for generated audio files):
 
-mkdir audio
-
-
-
+   ```bash
+   mkdir audio
+   ```
 
 ---
 
-🚀 Running the API
+## 🚀 Running the API
 
-To start the FastAPI application:
+Start the FastAPI application with:
 
+```bash
 uvicorn main:app --reload
+```
 
-The API will be accessible at http://127.0.0.1:8000.
+The API will be accessible at:
+👉 [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
+Swagger Docs will be available at:
+👉 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
----
+```
+
 
 # 🧪 API Endpoints
 
